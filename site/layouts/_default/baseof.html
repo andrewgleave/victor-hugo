@@ -6,6 +6,9 @@
     <base href="{{ if getenv "CONTEXT" }}{{ cond (eq "production" (getenv "CONTEXT")) (getenv "URL") (getenv "DEPLOY_PRIME_URL") }}{{ else }}{{ $.Site.BaseURL }}{{ end }}">
     <title>{{ $.Site.Title }}</title>
     <link rel="stylesheet" href="css/main.css"/>
+    {{ range .AlternativeOutputFormats -}}
+      {{ printf `<link rel="%s" type="%s+%s" href="%s" title="%s" />` .Rel .MediaType.Type .MediaType.Suffix .Permalink $.Site.Title | safeHTML }}
+    {{ end -}}
   </head>
   <body>
 
