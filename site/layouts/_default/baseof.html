@@ -5,20 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <base href="{{ if getenv "CONTEXT" }}{{ cond (eq "production" (getenv "CONTEXT")) (getenv "URL") (getenv "DEPLOY_PRIME_URL") }}{{ else }}{{ $.Site.BaseURL }}{{ end }}">
     <title>{{ $.Site.Title }}</title>
-    <link rel="stylesheet" href="/css/main.css"/>
+    <link rel="stylesheet" href="/css/{{ index .Site.Data.assets "main.css" }}"/>
     {{ range .AlternativeOutputFormats -}}
       {{ printf `<link rel="%s" type="%s+%s" href="%s" title="%s" />` .Rel .MediaType.Type .MediaType.Suffix .Permalink $.Site.Title | safeHTML }}
     {{ end -}}
   </head>
   <body>
-
     {{ block "header" . }}{{ partial "header" . }}{{end}}
-
     {{ block "main" . }}{{end}}
-
     {{ block "footer" . }}{{ partial "footer" . }}{{end}}
-
-    <script src="/js/app.js"></script>
-
+    <script src="/js/{{ index .Site.Data.assets "app.js" }}"></script>
   </body>
 </html>
