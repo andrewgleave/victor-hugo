@@ -21,6 +21,12 @@ const browserSync = BrowserSync.create();
 const hugoArgsDefault = ["-d", "../dist", "-s", "site", "-v"];
 const hugoArgsPreview = ["--buildDrafts", "--buildFuture"];
 
+// Init
+gulp.task("init", () => {
+  del(".git");
+  exec("git init");
+});
+
 // Development tasks
 gulp.task("hugo", cb => buildSite(cb));
 gulp.task("hugo-preview", cb => buildSite(cb, hugoArgsPreview));

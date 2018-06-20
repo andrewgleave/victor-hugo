@@ -9,6 +9,7 @@
     "hugo": "gulp hugo",
     "build": "gulp build",
     "build-preview": "gulp build-preview",
+    "init": "gulp init",
     "start": "gulp server",
     "start-preview": "gulp server-preview",
     "lint": "eslint src",
