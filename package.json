@@ -1,8 +1,7 @@
 {
   "name": "victor-hugo",
   "version": "1.0.0",
-  "description":
-    "Victor Hugo is a Hugo boilerplate for creating truly epic websites!",
+  "description": "Victor Hugo is a Hugo boilerplate for creating truly epic websites!",
   "repository": "netlify/victor-hugo",
   "main": "index.js",
   "scripts": {
@@ -50,7 +49,10 @@
     "whatwg-fetch": "^2.0.4"
   },
   "lint-staged": {
-    "*.{js,json,css,md}": ["prettier --write", "git add"]
+    "*.{js,json,css,md}": [
+      "prettier --write --single",
+      "git add"
+    ]
   },
   "resolutions": {
     "natives": "1.1.3"
