@@ -2,7 +2,6 @@ import { spawn } from 'child_process';
 
 import hugoBin from 'hugo-bin';
 import webpack from 'webpack';
-import webpackConfig from './webpack.conf';
 import BrowserSync from 'browser-sync';
 import del from 'del';
 
@@ -16,6 +15,11 @@ import cssImport from 'postcss-import';
 import postcssSimpleVars from 'postcss-simple-vars';
 import postcssPresetEnv from 'postcss-preset-env';
 import postcssMixins from 'postcss-mixins';
+
+// Import webpack conf based on NODE_ENV
+const webpackConfig = require(`./webpack-${
+  process.env.NODE_ENV === 'development' ? 'dev' : 'production'
+}.conf`).default;
 
 const browserSync = BrowserSync.create();
 
@@ -89,7 +93,9 @@ gulp.task('images', () => {
 // Compile Javascript
 gulp.task('js', cb => {
   del(['dist/js/**/*']);
-  const myConfig = Object.assign({}, webpackConfig);
+  const myConfig = Object.assign({}, webpackConfig, {
+    mode: process.env.NODE_ENV
+  });
   webpack(myConfig, (err, stats) => {
     if (err) throw new gutil.PluginError('webpack', err);
     gutil.log(

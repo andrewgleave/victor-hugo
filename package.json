@@ -6,11 +6,10 @@
   "main": "index.js",
   "scripts": {
     "hugo": "gulp hugo",
-    "build": "gulp build",
-    "build-preview": "gulp build-preview",
-    "init": "gulp init",
-    "start": "gulp server",
-    "start-preview": "gulp server-preview",
+    "build": "NODE_ENV=production gulp build",
+    "build-preview": "NODE_ENV=production gulp build-preview",
+    "start": "NODE_ENV=development gulp server",
+    "start-preview": "NODE_ENV=development gulp server-preview",
     "lint": "eslint src",
     "precommit": "lint-staged"
   },
