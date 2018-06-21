@@ -27,12 +27,6 @@ const browserSync = BrowserSync.create();
 const hugoArgsDefault = ['-d', '../dist', '-s', 'site', '-v'];
 const hugoArgsPreview = ['--buildDrafts', '--buildFuture'];
 
-// Init
-gulp.task('init', () => {
-  del('.git');
-  exec('git init');
-});
-
 // Development tasks
 gulp.task('hugo', cb => buildSite(cb));
 gulp.task('hugo-preview', cb => buildSite(cb, hugoArgsPreview));
@@ -48,11 +42,9 @@ gulp.task(
 );
 
 // Build/production tasks
-gulp.task('build', ['css', 'images', 'js', 'fonts'], cb =>
-  buildSite(cb, [], 'production')
-);
+gulp.task('build', ['css', 'images', 'js', 'fonts'], cb => buildSite(cb, []));
 gulp.task('build-preview', ['css', 'images', 'js', 'fonts'], cb =>
-  buildSite(cb, hugoArgsPreview, 'production')
+  buildSite(cb, hugoArgsPreview)
 );
 
 // Compile CSS with PostCSS
@@ -141,11 +133,8 @@ function runServer() {
 /**
  * Run hugo and build the site
  */
-function buildSite(cb, options, environment = 'development') {
+function buildSite(cb, options) {
   const args = options ? hugoArgsDefault.concat(options) : hugoArgsDefault;
-
-  process.env.NODE_ENV = environment;
-
   return spawn(hugoBin, args, { stdio: 'inherit' }).on('close', code => {
     if (code === 0) {
       browserSync.reload();
