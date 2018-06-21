@@ -13,7 +13,9 @@ import postcss from "gulp-postcss";
 import hash from "gulp-hash";
 
 import cssImport from "postcss-import";
-import cssnext from "postcss-cssnext";
+import postcssSimpleVars from "postcss-simple-vars";
+import postcssPresetEnv from "postcss-preset-env";
+import postcssMixins from "postcss-mixins";
 
 const browserSync = BrowserSync.create();
 
@@ -54,7 +56,17 @@ gulp.task("css", () => {
   del(["dist/css/**/*"]);
   gulp
     .src("./src/css/*.css")
-    .pipe(postcss([cssImport({ from: "./src/css/main.css" }), cssnext()]))
+    .pipe(
+      postcss([
+        cssImport({ from: "./src/css/main.css" }),
+        postcssMixins(),
+        postcssSimpleVars(),
+        postcssPresetEnv({
+          stage: "1",
+          browsers: "last 20 versions"
+        })
+      ])
+    )
     .pipe(hash())
     .pipe(gulp.dest("dist/css"))
     .pipe(hash.manifest("site/data/assets.json"))
