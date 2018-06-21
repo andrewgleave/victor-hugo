@@ -93,9 +93,7 @@ gulp.task('images', () => {
 // Compile Javascript
 gulp.task('js', cb => {
   del(['dist/js/**/*']);
-  const myConfig = Object.assign({}, webpackConfig, {
-    mode: process.env.NODE_ENV
-  });
+  const myConfig = Object.assign({}, webpackConfig);
   webpack(myConfig, (err, stats) => {
     if (err) throw new gutil.PluginError('webpack', err);
     gutil.log(
